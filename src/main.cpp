@@ -126,6 +126,7 @@ static const struct option g_LongOpts[] = {
     {"makepass", no_argument, nullptr, 's'},
     {"makepem", no_argument, nullptr, 'p'},
     {"datadir", required_argument, nullptr, 'd'},
+    {"moduledir", required_argument, nullptr, 'm'},
     {nullptr, 0, nullptr, 0}};
 
 static void GenerateHelp(const char* appname) {
@@ -140,6 +141,8 @@ static void GenerateHelp(const char* appname) {
     CUtils::PrintMessage(
         "\t-d, --datadir      Set a different ZNC repository (default is "
         "~/.znc)");
+    CUtils::PrintMessage(
+        "\t-m, --moduledir    Add an additional path where to look for modules");
     CUtils::PrintMessage(
         "\t-D, --debug        Output debugging information (Implies -f)");
     CUtils::PrintMessage("\t-f, --foreground   Don't fork into the background");
@@ -284,6 +287,7 @@ static void seedPRNG() {
 int main(int argc, char** argv) {
     CString sConfig;
     CString sDataDir = "";
+    CString sModuleDir = "";
 
     thread_setup();
 
@@ -303,7 +307,7 @@ int main(int argc, char** argv) {
 #endif
     CZNC::CreateInstance();
 
-    while ((iArg = getopt_long(argc, argv, "hvnrcspd:Df", g_LongOpts,
+    while ((iArg = getopt_long(argc, argv, "hvnrcspd:m:Df", g_LongOpts,
                                &iOptIndex)) != -1) {
         switch (iArg) {
             case 'h':
@@ -335,6 +339,9 @@ int main(int argc, char** argv) {
 #endif /* HAVE_LIBSSL */
             case 'd':
                 sDataDir = CString(optarg);
+                break;
+            case 'm':
+                sModuleDir = CString(optarg);
                 break;
             case 'f':
                 bForeground = true;
