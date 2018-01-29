@@ -146,6 +146,7 @@ class CZNC {
     const CString& GetZNCPath() const;
     CString GetConfPath(bool bAllowMkDir = true) const;
     CString GetUserPath() const;
+    CString GetExtraModDir() const;
     CString GetModPath() const;
     CString GetPemLocation() const;
     CString GetKeyLocation() const;

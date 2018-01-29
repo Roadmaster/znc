@@ -415,6 +415,12 @@ CString CZNC::GetModPath() const {
     return sModPath;
 }
 
+CString CZNC::GetExtraModDir() const {
+    CString sExtraModDir = m_sExtraModDir;
+
+    return sExtraModDir;
+}
+
 const CString& CZNC::GetCurPath() const {
     if (!CFile::Exists(m_sCurPath)) {
         CDir::MakeDir(m_sCurPath);
