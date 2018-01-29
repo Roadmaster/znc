@@ -1886,6 +1886,11 @@ CModules::ModDirList CModules::GetModDirs() {
     // <moduledir> and <datadir> (<prefix>/lib/znc)
     ret.push(std::make_pair(_MODDIR_ + CString("/"),
                             _DATADIR_ + CString("/modules/")));
+    // Custom module path
+    CString sExtraModPath = CZNC::Get().GetExtraModDir();
+    if (sExtraModPath.length() > 0){
+        ret.push(std::make_pair(sExtraModPath + "/", sExtraModPath + "/"));
+    }
 
     return ret;
 }
