@@ -61,7 +61,7 @@ class CZNC {
     // This returns false if there are too many anonymous connections from this
     // ip
     bool AllowConnectionFrom(const CString& sIP) const;
-    void InitDirs(const CString& sArgvPath, const CString& sDataDir);
+    void InitDirs(const CString& sArgvPath, const CString& sDataDir, const CString& sExtraModDir);
     bool OnBoot();
     CString ExpandConfigPath(const CString& sConfigFile,
                              bool bAllowMkDir = true);
@@ -279,6 +279,7 @@ class CZNC {
 
     CString m_sCurPath;
     CString m_sZNCPath;
+    CString m_sExtraModDir;
 
     CString m_sConfigFile;
     CString m_sSkinName;

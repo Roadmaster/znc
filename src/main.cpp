@@ -368,7 +368,7 @@ int main(int argc, char** argv) {
     }
 
     CZNC* pZNC = &CZNC::Get();
-    pZNC->InitDirs(((argc) ? argv[0] : ""), sDataDir);
+    pZNC->InitDirs(((argc) ? argv[0] : ""), sDataDir, sModuleDir);
 
 #ifdef HAVE_LIBSSL
     if (bMakePem) {

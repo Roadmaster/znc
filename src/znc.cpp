@@ -79,7 +79,8 @@ CZNC::CZNC()
       m_bAuthOnlyViaModule(false),
       m_Translation("znc"),
       m_uiConfigWriteDelay(0),
-      m_pConfigTimer(nullptr) {
+      m_pConfigTimer(nullptr),
+      m_sExtraModDir("") {
     if (!InitCsocket()) {
         CUtils::PrintError("Could not initialize Csocket!");
         exit(-1);
@@ -363,7 +364,7 @@ bool CZNC::AllowConnectionFrom(const CString& sIP) const {
     return (GetManager().GetAnonConnectionCount(sIP) < m_uiAnonIPLimit);
 }
 
-void CZNC::InitDirs(const CString& sArgvPath, const CString& sDataDir) {
+void CZNC::InitDirs(const CString& sArgvPath, const CString& sDataDir, const CString& sExtraModDir) {
     // If the bin was not ran from the current directory, we need to add that
     // dir onto our cwd
     CString::size_type uPos = sArgvPath.rfind('/');
@@ -383,6 +384,11 @@ void CZNC::InitDirs(const CString& sArgvPath, const CString& sDataDir) {
 
     m_sSSLCertFile = m_sSSLKeyFile = m_sSSLDHParamFile =
         m_sZNCPath + "/znc.pem";
+    if (! sExtraModDir.empty()){
+        m_sExtraModDir = sExtraModDir;
+        CUtils::PrintAction("Using extra module dir [" + sExtraModDir + "]");
+    }
+
 }
 
 CString CZNC::GetConfPath(bool bAllowMkDir) const {
